@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Hackfest 2013</title>
+<script type="text/javascript" data-dojo-config="'parseOnLoad':true,'async':true,'packages':[{'name':'gridx','location':'../gridx'},{'name':'clipart','location':'../../clipart'},{'name':'maqettaSamples','location':'../../../samples'},{'name':'maqetta','location':'../../maqetta'},{'name':'shapes','location':'../../shapes'},{'name':'zazl','location':'../../zazl'},{'name':'widgets','location':'../../custom'}],'themeMap':[['Android','',['themes/android/android.css']],['BlackBerry','',['themes/blackberry/blackberry.css']],['iPad','',['themes/ipad/ipad.css']],['iPhone','',['themes/iphone/iphone.css']],['.*','',['themes/iphone/iphone.css']]],'mblThemeFiles':[],'mblLoadCompatPattern':''" src="lib/dojo/dojo/dojo.js"></script>
+<script type="text/javascript">
+require([
+  "dijit/dijit",
+  "dojo/parser",
+  "maqetta/space",
+  "maqetta/AppStates",
+  "dijit/layout/ContentPane",
+  "dijit/form/Button",
+  "dijit/MenuBar",
+  "dijit/PopupMenuBarItem",
+  "dijit/MenuItem",
+  "dijit/Menu",
+  "dijit/form/TextBox",
+  "clipart/Search"
+]);
+</script>
+<style>
+@import "themes/claro/document.css";@import "themes/claro/claro.css";@import "app.css";
+.device {
+	float: left;
+	width: auto;
+}
+.devices{
+	clear:both;
+}
+</style>
+<script type="text/javascript" src="app.js"></script>
+</head>
+<body data-maq-flow-layout="true" data-maq-comptype="desktop" class="claro" data-maq-ws="collapse" data-maq-appstates="{}" id="myapp">
+ <div data-dojo-type="dijit/layout/ContentPane" title="Pane" doLayout="false" style="width: 100%; height: auto; position: fixed;">
+<span data-dojo-type="dijit/MenuBar" tabIndex="0"><span data-dojo-type="dijit/PopupMenuBarItem" label="Home" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="House" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="Alerts" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="Settings" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"><span data-dojo-type="dijit/MenuItem" label="Configure Mobile"></span><span data-dojo-type="dijit/MenuItem" label="Configure Push Notifications"></span>
+</span>
+</span>
+</span><input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" style="position: fixed; top: 12px; right: 30px;"></input>
+<img data-dojo-type="clipart/Search" style="position: fixed; top: 15px; right: 10px;"></img>
+</div>
+ <div data-dojo-type="dijit/layout/ContentPane" title="Pane" doLayout="false" style="width: 100%; height: auto; position: relative; top: 10%;">
+ <div class="element" id="subscriptions">
+ <h3> Houses I am watching </h3>
+ <div class="house"> 
+ 	<div class="houseName">Mr Elderly</div> <div class="houseStateBad">Bad</div>
+ </div>
+  <div class="house"> 
+ 	<div class="houseName">Mr Elderly</div> <div class="houseStateGood">Good</div>
+ </div>
+  <div class="house"> 
+ 	<div class="houseName">Mr Elderly</div> <div class="houseStateGood">Good</div>
+ </div>
+ <div class="button"> Add new house</div>
+ </div> <!-- end of houses -->
+ 
+ <div class="element" id="houseItem">
+ 	<div class="elementHeader"><h3>House Number #</h3></div>
+    <div class="info"><h3>Contact: </h3><div>Contact number ###</div></div>
+    <div class="reset">Reset</div>
+    <div class="Holiday">Holiday</div>
+    <div class="subscribers">
+    	<div class="subscriber">Subscriber 1</div>
+       	<div class="subscriber">Subscriber 2</div>
+    	<div class="subscriber">Subscriber 3</div>
+        <div class="subscriber">Add subscriber</div>
+    </div>
+    <div> Add Device Button </div>
+    <div> Edit Button </div>
+    <div> Submit Button </div>
+    <div> Cancel Button </div>
+ </div> <!-- end of house item -->
+ 
+ <div class="element" id="status">
+ 	<div class="elementHeader"> Status </div>
+    <div class="devices">
+    	<div class="device name">TV</div>
+        <div class="device updated">Turned ON (11 hours ago)</div>
+        <div class="device status">Bad</div>
+    </div>
+    <div class="devices">
+    	<div class="device name">Kettle</div>
+        <div class="device updated">Turned OFF (4 hours ago) </div>
+        <div class="device status"> Good </div>
+    </div>
+    <div class="devices">
+    	<div class="device name">Oven</div>
+        <div class="device updated">Turned OFF (8 hours ago)</div>
+        <div class="device status"> Good </div>
+    </div>
+ </div> <!--END OF STATUS ITEM -->
+ 
+ <div class="element" id="settings">
+ 	<div class="elementHeader"> Settings </div>
+    <div class="settings">Name</div>
+    <div class="settings">Email</div>
+    <div class="settings">Phone Number</div>
+    <div class="settings">Push Notifications</div>
+    <input type="checkbox" id="Push"/>    
+ </div> <!--End of Settings -->
+ 
+ <div class="element" id="addDevice">
+ 	<div class="elementHeader"> Add Device </div>
+    <div>Select device</div>
+    <select>
+    <option value="1">0001</option>
+    <option value="2">0002</option>
+    <option value="3">0003</option>
+    <option value="4">0004</option>
+ 	</select>
+    <input type="text" id="name"/>
+    <div>State</div>
+    <div>Last updated</div>
+    <div> Save button</div>
+    <div> Cancel button</div>
+ </div>
+ 
+ 
+ 
+ </div> <!-- end of content-->
+</body>
+</html>

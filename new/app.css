@@ -1,0 +1,210 @@
+/*
+ * This file is provided for application-specific style rules.
+ *
+ * By default, Maqetta includes this CSS file within HTML pages
+ * authored in Maqetta.
+ *
+ * This file is typically used to override style rules found in
+ * theme CSS files. For example, suppose the theme CSS file has:
+ *
+ * .claro .dijitButton .dijitButtonNode {
+ *		padding:2px 4px 4px 4px;
+ * }
+ *
+ * But for your application suppose you want to tighten the padding
+ * for buttons. Then, you might include the following style rule
+ * in this file (assuming that you accept Maqetta's default where
+ * id "myapp" is present on the BODY element, and assuming
+ * that you are using the "claro" theme):
+ *
+ * #myapp.claro .dijitButton .dijitButtonNode {
+ *		padding:1px 3px 3px 3px;
+ * }
+ *
+ * Because of CSS precedence rules (see [1]), the above style rule
+ * (which begins with #myapp.claro) will "win the cascade" versus 
+ * the style rule from the theme CSS file due to the use of the
+ * ID select (#myapp), which has higher specificity than the class
+ * selectors used throughout the Claro theme.
+ *
+ * [1] http://www.w3.org/TR/CSS21/cascade.html#cascade
+ */
+html,body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-image:url(images/guard.bmp);
+	background-repeat:no-repeat;
+	background-position:bottom right;
+	background: #e1ffff; /* Old browsers */}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 480px) {
+/* Styles */
+
+.element {width:100%}
+}
+ 
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-width : 481px) 
+and (max-width : 765px) {
+/* Styles */
+.element {width:50%}
+}
+ 
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-width : 765px){
+/* Styles */
+.element {width:33%}
+}
+ 
+
+.element{
+	border:thin black dashed;
+	float: left;
+	padding:20px;
+	
+	}
+
+.house div {
+}
+
+.houseName {
+	
+border: 1px solid #B8D5DB;
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #D6F9FF), color-stop(0.9, #9EE8FA) );
+background: -moz-linear-gradient( center top, #D6F9FF 10%, #9EE8FA 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D6F9FF', endColorstr='#9EE8FA');
+background-color: #D6F9FF;
+-moz-box-shadow: inset 0px 1px 2px 0px #FFFFFF;
+-webkit-box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+-moz-border-radius-bottomleft: 5px;
+-moz-border-radius-topleft: 5px;
+-webkit-border-top-left-radius: 5px;
+-webkit-border-bottom-left-radius: 5px;
+border-radius-bottom-left: 5px;
+border-radius-top-left: 5px;
+text-shadow: 1px 1px 2px #FFFFFF;
+font-weight: bold;
+margin: 5px 0px 5px 5px;
+padding: 6px 6px;
+color: #2E787D;
+letter-spacing: 1px;
+font-family: 'Arial', sans-serif;
+font-size: 16px;
+width: 150px;
+text-transform: capitalize;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+float:left;
+display: inline-block;
+}
+.houseName:hover {
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #9EE8FA), color-stop(0.9, #D6F9FF) );
+background: -moz-linear-gradient( center top, #9EE8FA 10%, #D6F9FF 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9EE8FA', endColorstr='#D6F9FF');
+background-color: #9EE8FA;
+}
+.houseName:active {
+position: relative;
+top: 1px;
+left: 0px;
+}
+
+.houseStateBad {
+border: 1px solid #CD0000;
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #FF1A00), color-stop(0.9, #CD0000) );
+background: -moz-linear-gradient( center top, #FF1A00 10%, #CD0000 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF1A00', endColorstr='#CD0000');
+background-color: #FF1A00;
+-moz-box-shadow: inset 0px 1px 2px 0px #FFFFFF;
+-webkit-box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-topright: 5px;
+-webkit-border-top-right-radius: 5px;
+-webkit-border-bottom-right-radius: 5px;
+border-radius-bottom-right: 5px;
+border-radius-top-right: 5px;
+text-shadow: 1px 1px 2px #000000;
+font-weight: bold;
+margin: 5px 5px 5px 0px;
+padding: 6px 6px;
+color: #FFFFFF;
+letter-spacing: 1px;
+font-family: 'Arial', sans-serif;
+font-size: 16px;
+width: 150px;
+text-transform: capitalize;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+display: inline-block;
+}
+.houseStateBad:hover {
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #CD0000), color-stop(0.9, #FF1A00) );
+background: -moz-linear-gradient( center top, #CD0000 10%, #FF1A00 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CD0000', endColorstr='#FF1A00');
+background-color: #CD0000;
+}
+.houseStateBad:active {
+position: relative;
+top: 1px;
+left: 0px;
+}
+
+.houseStateGood {
+border: 1px solid #79A854;
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #ABDC28), color-stop(0.9, #94C60F) );
+background: -moz-linear-gradient( center top, #ABDC28 10%, #94C60F 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ABDC28', endColorstr='#94C60F');
+background-color: #ABDC28;
+-moz-box-shadow: inset 0px 1px 2px 0px #FFFFFF;
+-webkit-box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+box-shadow: inset 0px 1px  2px 0px #FFFFFF;
+-moz-border-radius-bottomright: 5px;
+-moz-border-radius-topright: 5px;
+-webkit-border-top-right-radius: 5px;
+-webkit-border-bottom-right-radius: 5px;
+border-radius-bottom-right: 5px;
+border-radius-top-right: 5px;
+text-shadow: 1px 1px 2px #000000;
+font-weight: bold;
+margin: 5px 5px 5px 0px;
+padding: 6px 6px;
+color: #FFFFFF;
+letter-spacing: 1px;
+font-family: 'Arial', sans-serif;
+font-size: 16px;
+width: 150px;
+text-transform: capitalize;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+display: inline-block;
+}
+.houseStateGood:hover {
+background: -webkit-gradient( linear, left top, left bottom, color-stop(0.1, #94C60F), color-stop(0.9, #ABDC28) );
+background: -moz-linear-gradient( center top, #94C60F 10%, #ABDC28 90% );
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#94C60F', endColorstr='#ABDC28');
+background-color: #94C60F;
+}
+.houseStateGood:active {
+position: relative;
+top: 1px;
+left: 0px;
+}
+
+/* end of houses */
+
+/* start of individualItem  */
+
+
+
