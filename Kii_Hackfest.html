@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>Hackfest 2013</title>
+<script type="text/javascript" data-dojo-config="'parseOnLoad':true,'async':true,'packages':[{'name':'gridx','location':'../gridx'},{'name':'clipart','location':'../../clipart'},{'name':'maqettaSamples','location':'../../../samples'},{'name':'maqetta','location':'../../maqetta'},{'name':'shapes','location':'../../shapes'},{'name':'zazl','location':'../../zazl'},{'name':'widgets','location':'../../custom'}],'themeMap':[['Android','',['themes/android/android.css']],['BlackBerry','',['themes/blackberry/blackberry.css']],['iPad','',['themes/ipad/ipad.css']],['iPhone','',['themes/iphone/iphone.css']],['.*','',['themes/iphone/iphone.css']]],'mblThemeFiles':[],'mblLoadCompatPattern':''" src="lib/dojo/dojo/dojo.js"></script>
+<script type="text/javascript">
+require([
+  "dijit/dijit",
+  "dojo/parser",
+  "maqetta/space",
+  "maqetta/AppStates",
+  "dijit/layout/ContentPane",
+  "dijit/form/Button",
+  "dijit/MenuBar",
+  "dijit/PopupMenuBarItem",
+  "dijit/MenuItem",
+  "dijit/Menu",
+  "dijit/form/TextBox",
+  "clipart/Search"
+]);
+</script>
+<style>@import "themes/claro/document.css";@import "themes/claro/claro.css";@import "app.css";
+</style>
+<script type="text/javascript" src="app.js"></script>
+</head>
+<body data-maq-flow-layout="true" data-maq-comptype="desktop" class="claro" data-maq-ws="collapse" data-maq-appstates="{}" id="myapp">
+ <div data-dojo-type="dijit/layout/ContentPane" title="Pane" doLayout="false" style="width: 100%; height: auto; position: fixed;">
+<span data-dojo-type="dijit/MenuBar" tabIndex="0"><span data-dojo-type="dijit/PopupMenuBarItem" label="Home" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="House" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="Alerts" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"></span>
+</span><span data-dojo-type="dijit/PopupMenuBarItem" label="Settings" iconClass="dijitNoIcon"><span data-dojo-type="dijit/Menu"><span data-dojo-type="dijit/MenuItem" label="Configure Mobile"></span><span data-dojo-type="dijit/MenuItem" label="Configure Push Notifications"></span>
+</span>
+</span>
+</span><input type="text" data-dojo-type="dijit/form/TextBox" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" selectOnClick="false" style="position: fixed; top: 12px; right: 30px;"></input>
+<img data-dojo-type="clipart/Search" style="position: fixed; top: 15px; right: 10px;"></img>
+</div>
+ <div data-dojo-type="dijit/layout/ContentPane" title="Pane" doLayout="false" style="width: 100%; height: auto; position: relative; top: 10%;"></div>
+</body>
+</html>
