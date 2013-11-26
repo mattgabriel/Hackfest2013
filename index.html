@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hackfest</title>
+<meta name="description" content="Hackfest">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/KiiSDK 2.1 - HTML5 KiiSDK.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<link href="css/webfonts/ss-standard.css" rel="stylesheet" />
+<script src="css/webfonts/ss-standard.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <h1>Hackfest</h1>
+    <div class="px50"></div>
+    
+    <div class="signupForm">
+    	 <h2>Sign up</h2>
+        <input type="text" id="signup-username" placeholder="Username">
+        <input type="password" id="signup-password" placeholder="Password">
+        <div class="registerButton" id="register-button"><a href="#">Register <span class="ss-icon">&#x002B;</span></a></div>
+        <div class="responseMessage signup"></div>
+   		 <div class="px50"></div> 
+    </div><!-- signupForm ends-->
+    
+    <div class="loginForm">
+    	 <h2>Login</h2>
+        <input type="text" id="login-username" placeholder="Username">
+        <input type="password" id="login-password" placeholder="Password">
+        <div class="loginButton" id="login-button"><a href="#">Login <span class="ss-icon">&#x1F511;</span></a></div>
+        <div class="responseMessage login"></div>
+        <div class="px50"></div>
+    </div><!-- loginForm ends-->
+    
+    <div id="house-button"><a href="#">Add a house</a></div>
+    <div id="device-button"><a href="#">Add a device</a></div>
+    <div id="contact-button"><a href="#">Add contact details</a></div>
+    <div id="settings-button"><a href="#">Add settings</a></div>
+    <div id="rule-button"><a href="#">Add rule</a></div>
+    <div id="getHouses-button"><a href="#">Get user houses</a></div>
+    
+    <div class="myHouses">
+    	<ul class="housesList"></ul>
+    </div>
+    
+</div><!-- container ends-->
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	// bind clicks to our login/sign up methods
+	$("#register-button").click(performRegistration);
+	$("#login-button").click(performLogin);
+	$("#house-button").click(function(){
+		createHouse("12223","13234,234324,123123,12312");
+	});
+	
+	$("#device-button").click(function(){
+		createDevice("324234","3213","name",0); //houseId,deviceId,deviceName,deviceState
+	});
+	
+	$("#contact-button").click(function(){
+		createContact("324234","555-122313","name","email@email.com");//id,telephone,name,email
+	});
+	
+	$("#settings-button").click(function(){
+		createUserSettings("324234");//notification
+	});
+	
+	$("#rule-button").click(function(){
+		createRule("21:00","08:00",1,0,"112342","123123123"); //startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated
+	});
+	
+	$("#getHouses-button").click(function(){
+		getUserHouses(); //appends houses to .housesList
+	});
+	
+	$(document).on("click",".deleteHouse",function(){
+		var houseURI = $(this).parent().data("uri");
+		deleteObject(houseURI);
+		$(this).parent().slideUp();
+	});
+	
+});
+
+
+</script>
+</body>
+</html>
