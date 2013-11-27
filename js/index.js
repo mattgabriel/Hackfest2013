@@ -29,9 +29,13 @@ function performRegistration() {
 				
 				// tell the console
 				Kii.logger("User registered: " + theAuthedUser);
-				$(".responseMessage.signup").html("User registered: " + theAuthedUser['_uuid']);
+				//$(".responseMessage.signup").html("User registered: " + theAuthedUser['_uuid']);
 				console.log(theAuthedUser);
 				UUID = theAuthedUser['_uuid'];
+				createContact("","",""); //telephone,name,email
+				createUserSettings("");//notification
+				getUserHouses();
+				$(".signupForm, .loginForm").fadeOut();
 				preloader(0);
 				
 			},
@@ -65,7 +69,7 @@ function performLogin() {
 		success: function(theAuthedUser) {
 			// tell the console
 			Kii.logger("User authenticated: " + theAuthedUser);
-			$(".responseMessage.login").html("User authenticated: " + theAuthedUser['_accessToken']);
+			//$(".responseMessage.login").html("User authenticated: " + theAuthedUser['_accessToken']);
 			//console.log(theAuthedUser);
 			UUID = theAuthedUser['_uuid'];
 			getUserHouses();
@@ -85,23 +89,31 @@ function performLogin() {
 }
 
 
-function createHouse(MasterId,Devices){
+function createHouse(HouseId,Devices,HouseName){
 	// Create an application scope bucket named "mydata"
+	preloader(1);
 	var appBucket = Kii.bucketWithName("houses");
 	// Create the object with key/value pairs
 	var obj = appBucket.createObject();
-	obj.set("ID", MasterId);
+	obj.set("ID", HouseId);
+	obj.set("HouseName", HouseName);
 	obj.set("MasterId", UUID);
 	obj.set("Devices", Devices);
+	obj.set("Contact", "");
+	obj.set("Telephone", "");
+	obj.set("PostCode", "");
+	obj.set("Holiday", 0);
 	
 	// Save the object
 	obj.save({
 	  success: function(theObject) {
 		  getUserHouses();
+		  preloader(0);
 		  return "House created!";
 	  },
 	  failure: function(theObject, errorString) {
-		return "Error saving object: " + errorString;
+		  preloader(0);
+		  return "Error saving object: " + errorString;
 	  }
 	});
 }
@@ -191,28 +203,24 @@ function createRule(startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated){
 	});
 }
 
-function updateBucket(bucket,key,value,fromKey,fromValue){
+function updateBucket(key,value,URI){
 	// Create/add new values
-	var object2 = KiiObject.objectWithURI(object.objectURI());
-	object2.set(fromKey, fromValue);
+	var object2 = KiiObject.objectWithURI(URI);
 	object2.set(key, value);
 	
-	// This will append the local key/value pairs to the data
-	// that already exists on the server
 	object2.save({
 	  success: function(theObject) {
-		return "Object updated!";
+		console.log("Object saved!");
+		console.log(theObject);
 	  },
 	  failure: function(theObject, errorString) {
-		return "Error updating object: " + errorString;
+		console.log("Error saving object: " + errorString);
 	  }
 	});
 }
 
 
 function getUserHouses(){
-	//clear current list of houses (if any)
-	$(".housesList").html("");
 	// Prepare the target bucket to be queried
 	var bucket = Kii.bucketWithName("houses");
 	// Build "all" query
@@ -232,13 +240,22 @@ function getUserHouses(){
 	// Define the callbacks
 	var queryCallbacks = {
 	  success: function(queryPerformed, resultSet, nextQuery) {
+		  //clear current list of houses (if any)
+		$(".myHouses").fadeIn();
+		$(".housesList").html("");
 		// do something with the results
+		if(resultSet.length == 0){
+			$("body .housesList").append("<li><p>No houses set up yet.</p></li>");
+		}
+		
 		for(var i=0; i<resultSet.length; i++) {
 		  // do something with the object resultSet[i];
+		  var HouseName = resultSet[i]['_customInfo']['HouseName'];
 		  var ID = resultSet[i]['_customInfo']['ID'];
-		  var MasterId = resultSet[i]['_customInfo']['MasterId'];
+		  var HouseId = resultSet[i]['_customInfo']['ID'];
 		  var Devices = resultSet[i]['_customInfo']['Devices'];
-		  $("body .housesList").append("<li class=\"houseInstance\" data-uri=\"" + resultSet[i].objectURI() + "\"><p>House</p><p class=\"deleteHouse\">Delete</p><p class=\"editHouse\">Edit</p><div class=\"clear\"></div></li>");
+		  if(HouseName == ""){ HouseName = "My House"; }
+		  $("body .housesList").append("<li class=\"houseInstance\" data-houseid=\"" + HouseId + "\" data-uri=\"" + resultSet[i].objectURI() + "\"><p>" + HouseName + "</p><p class=\"houseState good\" id=\"houseDevices\">Good <span class=\"ss-icon\">&#x2713;</span></p><p class=\"deleteHouse ss-icon\">&#x2421;</p><p class=\"editHouse ss-icon\">&#x270E;</p><div class=\"clear\"></div></li>");
 		  console.log(resultSet[i]);
 		}
 		if(nextQuery != null) {
@@ -259,7 +276,135 @@ function getUserHouses(){
 	// bucket.executeQuery(null, queryCallbacks);
 }
 
+function getHouseDetails(houseId){
+	preloader(1);
+	// Prepare the target bucket to be queried
+	var bucket = Kii.bucketWithName("houses");
+	// Build "all" query
+	//var all_query = KiiQuery.queryWithClause();
+	
+	// Create the conditions for the query
+	var clause1 = KiiClause.equals("ID", houseId);
+	
+	// Merge the conditions together with an AND
+	var totalClause = KiiClause.and(clause1);
+	
+	// Build the query with the clauses and some other parameters
+	var query = KiiQuery.queryWithClause(totalClause);
+	query.setLimit(100);
+	query.sortByAsc("ID");
+	
+	// Define the callbacks
+	var queryCallbacks = {
+	  success: function(queryPerformed, resultSet, nextQuery) {
+		  //clear current list of houses (if any)
+		$(".houseDetails").fadeIn();
+		// do something with the results
+		if(resultSet.length == 0){
+			$(".houseDetails-fields").append("<p>Nothing found with HouseId = " + houseId + "</p>");
+		} else {
+			$(".houseDetails-fields").html("");	
+		}
+		for(var i=0; i<resultSet.length; i++) {
+		  // do something with the object resultSet[i];
+		  var HouseName = resultSet[i]['_customInfo']['HouseName'];
+		  var ID = resultSet[i]['_customInfo']['ID'];
+		  var HouseId = resultSet[i]['_customInfo']['ID'];
+		  var Devices = resultSet[i]['_customInfo']['Devices'];
+		  var Contact = resultSet[i]['_customInfo']['Contact'];
+		  var Telephone = resultSet[i]['_customInfo']['Telephone'];
+		  var PostCode = resultSet[i]['_customInfo']['PostCode'];
+		  var Holiday = resultSet[i]['_customInfo']['Holiday'];
+		 
+		  var HouseURI = resultSet[i].objectURI();
+		  if(HouseName == ""){ HouseName = "My House"; }
+		  $(".houseDetails-fields").data("houseuri",HouseURI);
+		  $(".houseDetails-fields").append("<input type=\"text\" id=\"HouseName\" placeholder=\"House name\" class=\"formInput\" value=\"" + HouseName + "\">");
+		  $(".houseDetails-fields").append("<input type=\"text\" id=\"HouseContact\" placeholder=\"House contact\" class=\"formInput\" value=\"" + Contact + "\">");
+		  $(".houseDetails-fields").append("<input type=\"text\" id=\"HouseTelephone\" placeholder=\"House telephone\" class=\"formInput\" value=\"" + Telephone + "\">");
+		  $(".houseDetails-fields").append("<input type=\"text\" id=\"HousePostCode\" placeholder=\"House postCode\" class=\"formInput\" value=\"" + PostCode + "\">");
+		  preloader(0);
+		  console.log(resultSet[i]);
+		}
+		if(nextQuery != null) {
+		  // There are more results (pages).
+		  // Execute the next query to get more results.
+		  bucket.executeQuery(nextQuery, queryCallbacks);
+		}
+	  },
+	  failure: function(queryPerformed, anErrorString) {
+		// do something with the error response
+		return "Error retrieving houses";
+		preloader(0);
+	  }
+	}
+	// Execute the query
+	bucket.executeQuery(query, queryCallbacks);
+	//return returnValues;
+	// alternatively, you can also do:
+	// bucket.executeQuery(null, queryCallbacks);
+}
 
+function getHouseDevices(houseId){
+	preloader(1);
+	// Prepare the target bucket to be queried
+	var bucket = Kii.bucketWithName("device");
+	// Build "all" query
+	//var all_query = KiiQuery.queryWithClause();
+	
+	// Create the conditions for the query
+	var clause1 = KiiClause.equals("houseId", houseId);
+	
+	// Merge the conditions together with an AND
+	var totalClause = KiiClause.and(clause1);
+	
+	// Build the query with the clauses and some other parameters
+	var query = KiiQuery.queryWithClause(totalClause);
+	query.setLimit(100);
+	query.sortByAsc("ID");
+	
+	// Define the callbacks
+	var queryCallbacks = {
+	  success: function(queryPerformed, resultSet, nextQuery) {
+		  //clear current list of houses (if any)
+		$(".houseDevices-fields").html("");
+		$(".houseDevices").fadeIn();
+		// do something with the results
+		if(resultSet.length == 0){
+			$(".houseDevices-fields").append("<li><p>No devices assigned to this house yet.</p></li>");
+		} else {
+			$(".houseDevices-fields").html("");	
+		}
+		$(".houseDevices-fields").data("houseid",houseId);
+		preloader(0);
+		for(var i=0; i<resultSet.length; i++) {
+		  // do something with the object resultSet[i];
+		  var deviceId = resultSet[i]['_customInfo']['deviceId'];
+		  var deviceName = resultSet[i]['_customInfo']['deviceName'];
+		  var deviceURI = resultSet[i].objectURI();
+		  
+		  $(".houseDevices-fields ul").append("<li data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">2 hours ago</p></li>");
+		  
+		  console.log(resultSet[i]);
+		}
+		if(nextQuery != null) {
+		  // There are more results (pages).
+		  // Execute the next query to get more results.
+		  bucket.executeQuery(nextQuery, queryCallbacks);
+		}
+	  },
+	  failure: function(queryPerformed, anErrorString) {
+		// do something with the error response
+		return "Error retrieving houses";
+		preloader(0);
+	  }
+	}
+	// Execute the query
+	bucket.executeQuery(query, queryCallbacks);
+	//return returnValues;
+	// alternatively, you can also do:
+	// bucket.executeQuery(null, queryCallbacks);
+}
 
 function deleteObject(objectURI){
 	var object = KiiObject.objectWithURI(objectURI);
@@ -277,10 +422,14 @@ function deleteObject(objectURI){
 
 function preloader(state){
 	if(state == 1){
-		$("body").append('<div class="preloader"><img src="img/preloader1.GIF"></div>');	
+		$("body").prepend('<div class="preloader"><img src="img/preloader1.GIF"></div>');	
 	} else {
 		$(".preloader").fadeOut(400,function(){
 			$(this).remove();
 		});
 	}
+}
+
+function generateId(){
+	return Math.floor((Math.random()*10000000000)+1);	
 }

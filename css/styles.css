@@ -1,4 +1,4 @@
-html,body	{ font-family:"Helvetica Neue", Gotham, Helvetica, Arial, sans-serif; height:100%; position:relative; }
+html,body	{ font-family:"Helvetica Neue", Gotham, Helvetica, Arial, sans-serif; height:100%; position:relative;  margin:0; padding:0; }
 body 		{ position:relative; background-color:#f4f4f4; }
 .clear { clear:both; }
 .px5 { clear:both; width:100%; height:5px; }
@@ -7,15 +7,53 @@ body 		{ position:relative; background-color:#f4f4f4; }
 .px50 { clear:both; width:100%; height:50px; }
 
 /*** LAYOUT ***/
-.container { }
+.preloader { position:absolute; background-color:rgba(0,0,0,0.5); height:100%; width:100%; min-height:100%; min-width:100%; top:-10px; right:0; bottom:0; left:0; z-index:999;  margin:0; padding:0; text-align:center; }
+.preloader img { position:absolute; top:40%; }
+.container { max-width:940px; margin:10px auto; z-index:0; }
 
-.housesList { margin:10px; max-width:400px; }
-.housesList li { background-color:#fff; margin:1px 0 0 0 }
-.housesList p { display:block; float:left; padding:10px; font-size:14px; font-weight:500; }
-.housesList p.deleteHouse { cursor:pointer; color:#fff; background-color:#DD301E; float:right; margin-left:1px; }
-.housesList p.editHouse { cursor:pointer; color:#fff; background-color:#33D56C; float:right; margin-left:1px; }
-.housesList p.deleteHouse:hover { opacity:0.9; }
-.housesList p.editHouse:hover { opacity:0.9; }
+.signupForm, .loginForm { width:400px; margin:0 auto; }
+.signupForm h2, .loginForm h2 { text-align:center; font-size:36px; font-weight:100; color:#333; padding:10px; }
+.signupForm .formInput, .loginForm .formInput { width:386px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
+.signupForm .formInput:hover, .loginForm .formInput:hover { box-shadow:rgba(0,0,0,0.2)1px 1px 4px; } 
+.signupForm .registerButton, .loginForm .loginButton { position:relative; margin:5px 0; }
+.signupForm .registerButton a, .loginForm .loginButton a { font-size:17px; font-weight:500; color:#fff; text-decoration:none; position:relative; padding:10px 20px; border:#fff solid 1px; background-color:#83DF1A; display:inline; display:inline-block; }
+.signupForm .registerButton span, .loginForm .loginButton span { position:relative; top:3px; margin-left:12px; }
+.signupForm .responseMessage, .loginForm .responseMessage { font-size:14px; font-weight:300; color:#CC2124; padding:10px 0; }
+
+.myHouses { width:600px; margin:0 auto; display:none; }
+.myHouses h2 { text-align:center; font-size:36px; font-weight:100; color:#333; padding:10px; }
+.housesList { margin:10px 0; width:100%; position:relative; }
+.housesList li { position:relative; background-color:#fff; margin:10px 0 10px 0; overflow:hidden; height:38px; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; transition:all 0.2s; }
+.housesList li:hover { box-shadow:rgba(0,0,0,0.2)1px 1px 4px; }
+.housesList p { display:block; float:left; padding:10px; font-size:14px; font-weight:500; position:relative; }
+.housesList p.deleteHouse { cursor:pointer; color:#888; float:right; margin-left:1px; }
+.housesList p.editHouse { cursor:pointer; color:#888; float:right; margin-left:1px; }
+.housesList p.houseState { cursor:pointer; color:#fff; background-color:#83DF1A; float:right; margin-left:10px; font-weight:900; padding-left:50px; padding-right:50px; }
+.housesList p.houseState span { position:relative; top:2px; margin-left:9px; }
+.housesList p.houseState:hover { opacity:0.9; }
+
+.houseDetails { width:600px; margin:0 auto; display:none; }
+.houseDetails h2 { text-align:center; font-size:36px; font-weight:100; color:#333; padding:10px; }
+.houseDetails .formInput { width:586px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
+
+.houseDevices { width:600px; margin:0 auto; display:none; }
+.houseDevices h2 { text-align:center; font-size:36px; font-weight:100; color:#333; padding:10px; }
+.houseDevices .formInput { width:586px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
+.houseDevices-fields li { width:586px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
+.houseDevices-fields li:hover {  box-shadow:rgba(0,0,0,0.2)1px 1px 4px;}
+.houseDevices-fields li h3 { font-size:20px; font-weight:100; }
+.houseDevices-fields li .deviceState { font-size:14px; font-weight:500; padding-top:10px; }
+.houseDevices-fields li .deviceUpdated { font-size:14px; font-weight:500; padding-top:10px; }
+
+.houseDevices-list { display:none; position:absolute; background-color:rgba(0,0,0,0.5); height:100%; width:100%; min-height:100%; min-width:100%; top:-10px; right:0; bottom:0; left:0; z-index:999;  margin:0; padding:0; text-align:center; }
+.houseDevices-list ul { position:absolute; top:35%; left:50%; margin-left:-100px; width:200px; }
+.houseDevices-list ul li { margin:0 0 2px 0; }
+.houseDevices-list ul li a { background-color:rgba(255,255,255,1); display:block; padding:10px; }
+.houseDevices-list ul li a:hover { background-color:rgba(255,255,255,0.8); }
+
+.button1 { position:relative; margin:5px 20px 5px 0; display:inline-block; }
+.button1 a { font-size:17px; font-weight:500; color:#fff; text-decoration:none; position:relative; padding:10px 20px; border:#fff solid 1px; background-color:#83DF1A; display:inline; display:inline-block; }
+.button1 a span { position:relative; top:3px; margin-left:12px; }
 
 @media screen and (min-width: 1000px) and (max-width: 1400px) {
 }
