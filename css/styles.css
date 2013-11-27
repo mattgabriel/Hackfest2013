@@ -28,7 +28,9 @@ body 		{ position:relative; background-color:#f4f4f4; background-image:url("../i
 .housesList p { display:block; float:left; padding:10px; font-size:14px; font-weight:500; position:relative; }
 .housesList p.deleteHouse { cursor:pointer; color:#888; float:right; margin-left:1px; }
 .housesList p.editHouse { cursor:pointer; color:#888; float:right; margin-left:1px; }
-.housesList p.houseState { cursor:pointer; color:#fff; background-color:#83DF1A; float:right; margin-left:10px; font-weight:900; padding-left:50px; padding-right:50px; }
+.housesList p.houseState { cursor:pointer; color:#fff; float:right; margin-left:10px; font-weight:900; padding-left:50px; padding-right:50px; }
+.housesList p.houseState.good { background-color:#83DF1A; }
+.housesList p.houseState.bad { background-color:red; }
 .housesList p.houseState span { position:relative; top:2px; margin-left:9px; }
 .housesList p.houseState:hover { opacity:0.9; }
 
@@ -41,9 +43,9 @@ body 		{ position:relative; background-color:#f4f4f4; background-image:url("../i
 .houseDevices .formInput { width:586px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
 .houseDevices-fields li { width:586px; margin:10px auto; padding:8px; font-size:16px; font-weight:400; /*border:#ccc solid 1px;*/ border:none; box-shadow:rgba(0,0,0,0.1)1px 1px 1px; background-color:#fff; display:block; outline:none; transition:all 0.2s; }
 .houseDevices-fields li:hover {  box-shadow:rgba(0,0,0,0.2)1px 1px 4px;}
-.houseDevices-fields li h3 { font-size:20px; font-weight:100; }
-.houseDevices-fields li .deviceState { font-size:14px; font-weight:500; padding-top:10px; }
-.houseDevices-fields li .deviceUpdated { font-size:16px; font-weight:500; padding-top:10px; }
+.houseDevices-fields li h3 { font-size:24px; font-weight:100; }
+.houseDevices-fields li .deviceState { font-size:16px; font-weight:500; padding-top:10px; }
+.houseDevices-fields li .deviceUpdated { font-size:14px; font-weight:100; padding-top:10px; }
 .houseDevices-fields li .deviceState.good { color:#1BBA07; font-size:18px; }
 .houseDevices-fields li .deviceState.bad { color:#E22023; font-size:18px;}
 
