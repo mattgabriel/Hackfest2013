@@ -44,8 +44,8 @@ body 		{ position:relative; background-color:#f4f4f4; background-image:url("../i
 .houseDevices-fields li h3 { font-size:20px; font-weight:100; }
 .houseDevices-fields li .deviceState { font-size:14px; font-weight:500; padding-top:10px; }
 .houseDevices-fields li .deviceUpdated { font-size:16px; font-weight:500; padding-top:10px; }
-.houseDevices-fields li .deviceUpdated.good { color:#1BBA07; }
-.houseDevices-fields li .deviceUpdated.bad { color:#E22023; }
+.houseDevices-fields li .deviceState.good { color:#1BBA07; font-size:18px; }
+.houseDevices-fields li .deviceState.bad { color:#E22023; font-size:18px;}
 
 .houseDevices-list { display:none; position:absolute; background-color:rgba(0,0,0,0.5); height:100%; width:100%; min-height:100%; min-width:100%; top:-10px; right:0; bottom:0; left:0; z-index:999;  margin:0; padding:0; text-align:center; }
 .houseDevices-list ul { position:absolute; top:15%; left:50%; margin-left:-100px; width:200px; }

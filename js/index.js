@@ -389,15 +389,16 @@ function getHouseDevices(houseId){
 		  
 		  deviceIdArray[i] = deviceId;
 		  
-		  $(".houseDevices-fields").append("<li id=\"" + deviceId + "\" data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">Last active: 1 minute ago</p></li>");
+		  $(".houseDevices-fields").append("<li id=\"state_" + deviceId + "\" data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">Last active: 1 minute ago</p></li>");
 		  
 		  console.log(resultSet[i]);
 		}
-		getDeviceRules(deviceIdArray);
 		if(nextQuery != null) {
 		  // There are more results (pages).
 		  // Execute the next query to get more results.
 		  bucket.executeQuery(nextQuery, queryCallbacks);
+		} else {
+			getDeviceRules(deviceIdArray);
 		}
 	  },
 	  failure: function(queryPerformed, anErrorString) {
@@ -439,7 +440,11 @@ function getDeviceRules(deviceIdArray){
 			for(var i=0; i<resultSet.length; i++) {
 			  // do something with the object resultSet[i];
 			  var ruleState = resultSet[i]['_customInfo']['state'];
-			  $("#" + deviceId + " .deviceState").html(deviceId);
+			  if(ruleState == 0){
+				$("#state_" + deviceId + " .deviceState").html("Active").addClass("good");
+			  } else {
+				$("#state_" + deviceId + " .deviceState").html("Inactive").addClass("bad");
+			  }
 			}
 			if(nextQuery != null) {
 			  // There are more results (pages).
