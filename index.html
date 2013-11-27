@@ -23,6 +23,7 @@
        <li><a>Kettle</a></li>
        <li><a>Lights</a></li>
        <li><a>Front door</a></li>
+       <li><a>Oven</a></li>
     </ul>
 </div>
 
@@ -63,7 +64,7 @@
     <div class="houseDevices">
     	<h2>House devices</h2>
         <div class="houseDevices-fields" data-houseid="">
-        	<ul></ul>
+        	<ul><li><p>test</p></li></ul>
         </div>
         <div id="houseDevicesBack-button" class="button1"><a href="#">Go back <span class="ss-icon">&#x25C5;</span></a></div>
         <div id="houseDevicesAdd-button" class="button1"><a href="#">Add device <span class="ss-icon">&#x002B;</span></a></div>
@@ -80,6 +81,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	var HouseId = "";
 	
 	// bind clicks to our login/sign up methods
 	$("#register-button").click(performRegistration);
@@ -88,11 +90,7 @@ $(document).ready(function() {
 		createHouse(generateId(),"",""); //HouseId,devices array,HouseName
 	});
 	
-	$("#device-button").click(function(){
-		createDevice("324234","3213","name",0); //houseId,deviceId,deviceName,deviceState
-		createRule("21:00","08:00",1,0,"112342","123123123"); //startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated
-	});
-	
+
 	$(document).on("click",".deleteHouse",function(){
 		var houseURI = $(this).parent().data("uri");
 		deleteObject(houseURI);
@@ -101,7 +99,7 @@ $(document).ready(function() {
 	
 	$(document).on("click",".editHouse",function(){
 		var houseURI = $(this).parent().data("uri");
-		var houseId = $(this).parent().data("houseid");
+		houseId = $(this).parent().data("houseid");
 		$(".myHouses").fadeOut(); 
 		getHouseDetails(houseId);
 	});
@@ -127,7 +125,7 @@ $(document).ready(function() {
 	
 	$(document).on("click","#houseDevices",function(){
 		var houseURI = $(this).parent().data("uri");
-		var houseId = $(this).parent().data("houseid");
+		houseId = $(this).parent().data("houseid");
 		$(".myHouses").fadeOut(); 
 		getHouseDevices(houseId);
 	});
@@ -137,9 +135,19 @@ $(document).ready(function() {
 		getUserHouses();
 	});
 	$(document).on("click","#houseDevicesAdd-button",function(){
-		var HouseId = $(".houseDevices-fields").data("houseid");
-		
-		//getHouseDevices(houseId);
+		HouseId = $(".houseDevices-fields").data("houseid");
+		$(".houseDevices-list").fadeIn();
+		getHouseDevices(HouseId);
+	});
+	$(document).on("click",".houseDevices-list a",function(){
+		var DeviceName = $(this).html();
+		var DeviceId = generateId();
+		var d = new Date();
+		var timestamp = d.getTime();
+		$(".houseDevices-list").fadeOut();
+		createDevice(HouseId,DeviceId,DeviceName,0); //HouseId,deviceId,deviceName,deviceState
+		createRule("21:00","08:00",1,0,DeviceId,timestamp); //startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated
+		getHouseDevices(HouseId);
 	});
 	
 	

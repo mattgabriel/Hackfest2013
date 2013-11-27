@@ -128,12 +128,15 @@ function createDevice(houseId,deviceId,deviceName,deviceState){
 	obj.set("deviceName", deviceName);
 	//obj.set("deviceState", "");
 	
+	
 	// Save the object
 	obj.save({
 	  success: function(theObject) {
+		console.log(theObject);
 		return "Device created!";
 	  },
 	  failure: function(theObject, errorString) {
+		  console.log(errorString);
 		return "Error saving device: " + errorString;
 	  }
 	});
@@ -383,7 +386,7 @@ function getHouseDevices(houseId){
 		  var deviceName = resultSet[i]['_customInfo']['deviceName'];
 		  var deviceURI = resultSet[i].objectURI();
 		  
-		  $(".houseDevices-fields ul").append("<li data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">2 hours ago</p></li>");
+		  $(".houseDevices-fields").append("<li data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">2 hours ago</p></li>");
 		  
 		  console.log(resultSet[i]);
 		}

@@ -1,5 +1,5 @@
 html,body	{ font-family:"Helvetica Neue", Gotham, Helvetica, Arial, sans-serif; height:100%; position:relative;  margin:0; padding:0; }
-body 		{ position:relative; background-color:#f4f4f4; }
+body 		{ position:relative; background-color:#f4f4f4; background-image:url("../img/background-image.png"); background-repeat:no-repeat; background-position:bottom left; background-size:70%; }
 .clear { clear:both; }
 .px5 { clear:both; width:100%; height:5px; }
 .px10 { clear:both; width:100%; height:10px; }
@@ -46,9 +46,9 @@ body 		{ position:relative; background-color:#f4f4f4; }
 .houseDevices-fields li .deviceUpdated { font-size:14px; font-weight:500; padding-top:10px; }
 
 .houseDevices-list { display:none; position:absolute; background-color:rgba(0,0,0,0.5); height:100%; width:100%; min-height:100%; min-width:100%; top:-10px; right:0; bottom:0; left:0; z-index:999;  margin:0; padding:0; text-align:center; }
-.houseDevices-list ul { position:absolute; top:35%; left:50%; margin-left:-100px; width:200px; }
-.houseDevices-list ul li { margin:0 0 2px 0; }
-.houseDevices-list ul li a { background-color:rgba(255,255,255,1); display:block; padding:10px; }
+.houseDevices-list ul { position:absolute; top:15%; left:50%; margin-left:-100px; width:200px; }
+.houseDevices-list ul li { margin:0 0 1px 0; }
+.houseDevices-list ul li a { background-color:rgba(255,255,255,1); display:block; padding:10px; cursor:pointer; font-size:14px; font-weight:200; }
 .houseDevices-list ul li a:hover { background-color:rgba(255,255,255,0.8); }
 
 .button1 { position:relative; margin:5px 20px 5px 0; display:inline-block; }
