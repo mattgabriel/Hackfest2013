@@ -380,16 +380,20 @@ function getHouseDevices(houseId){
 		}
 		$(".houseDevices-fields").data("houseid",houseId);
 		preloader(0);
+		var deviceIdArray = new Array();
 		for(var i=0; i<resultSet.length; i++) {
 		  // do something with the object resultSet[i];
 		  var deviceId = resultSet[i]['_customInfo']['deviceId'];
 		  var deviceName = resultSet[i]['_customInfo']['deviceName'];
 		  var deviceURI = resultSet[i].objectURI();
 		  
-		  $(".houseDevices-fields").append("<li data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">2 hours ago</p></li>");
+		  deviceIdArray[i] = deviceId;
+		  
+		  $(".houseDevices-fields").append("<li id=\"" + deviceId + "\" data-deviceid=\"" + deviceId + "\" data-deviceuri=\"" + deviceURI + "\"><h3>" + deviceName + "</h3><p class=\"deviceState\">Active</p><p class=\"deviceUpdated\">Last active: 1 minute ago</p></li>");
 		  
 		  console.log(resultSet[i]);
 		}
+		getDeviceRules(deviceIdArray);
 		if(nextQuery != null) {
 		  // There are more results (pages).
 		  // Execute the next query to get more results.
@@ -409,6 +413,53 @@ function getHouseDevices(houseId){
 	// bucket.executeQuery(null, queryCallbacks);
 }
 
+function getDeviceRules(deviceIdArray){
+	
+		// Prepare the target bucket to be queried
+		var bucket = Kii.bucketWithName("rules");
+	for(var q=0; q<deviceIdArray.length; q++) {	
+		// Build "all" query
+		//var all_query = KiiQuery.queryWithClause();
+		var deviceId = deviceIdArray[q];
+		// Create the conditions for the query
+		var clause1 = KiiClause.equals("deviceId", deviceId);
+		
+		// Merge the conditions together with an AND
+		var totalClause = KiiClause.and(clause1);
+		
+		// Build the query with the clauses and some other parameters
+		var query = KiiQuery.queryWithClause(totalClause);
+		query.setLimit(100);
+		query.sortByAsc("ID");
+		
+		// Define the callbacks
+		var queryCallbacks = {
+		  success: function(queryPerformed, resultSet, nextQuery) {
+			  //clear current list of houses (if any)
+			for(var i=0; i<resultSet.length; i++) {
+			  // do something with the object resultSet[i];
+			  var ruleState = resultSet[i]['_customInfo']['state'];
+			  $("#" + deviceId + " .deviceState").html(deviceId);
+			}
+			if(nextQuery != null) {
+			  // There are more results (pages).
+			  // Execute the next query to get more results.
+			  bucket.executeQuery(nextQuery, queryCallbacks);
+			}
+		  },
+		  failure: function(queryPerformed, anErrorString) {
+			// do something with the error response
+			return 99;
+		  }
+		}
+		// Execute the query
+		bucket.executeQuery(query, queryCallbacks);
+		//return returnValues;
+		// alternatively, you can also do:
+		// bucket.executeQuery(null, queryCallbacks);
+	}
+}
+
 function deleteObject(objectURI){
 	var object = KiiObject.objectWithURI(objectURI);
 	// Delete the Object
@@ -425,7 +476,7 @@ function deleteObject(objectURI){
 
 function preloader(state){
 	if(state == 1){
-		$("body").prepend('<div class="preloader"><img src="img/preloader1.GIF"></div>');	
+		$("body").prepend('<div class="preloader"><img src="img/preloader2.GIF" width="120"></div>');	
 	} else {
 		$(".preloader").fadeOut(400,function(){
 			$(this).remove();

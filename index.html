@@ -146,7 +146,7 @@ $(document).ready(function() {
 		var timestamp = d.getTime();
 		$(".houseDevices-list").fadeOut();
 		createDevice(HouseId,DeviceId,DeviceName,0); //HouseId,deviceId,deviceName,deviceState
-		createRule("21:00","08:00",1,0,DeviceId,timestamp); //startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated
+		createRule("November 27 2013 21:00:00","November 27 2013 08:00:00",1,0,DeviceId,timestamp); //startTime,endTime,state,anyTimeOfDay,deviceId,lastUpdated
 		getHouseDevices(HouseId);
 	});
 	
